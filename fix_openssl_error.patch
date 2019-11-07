@@ -1,0 +1,29 @@
+--- src/addins/VersionControl/MonoDevelop.VersionControl.Git/build_libgit2.sh	2019-11-07 00:22:08.067431877 +0000
++++ src/addins/VersionControl/MonoDevelop.VersionControl.Git/build_libgit2.sh.new	2019-11-07 00:21:58.207431933 +0000
+@@ -20,12 +20,25 @@
+ mkdir build
+ pushd build
+ 
++## that show-stopper???
++
++#cmake -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
++#      -DTHREADSAFE:BOOL=ON \
++#      -DBUILD_CLAR:BOOL=OFF \
++#      -DUSE_SSH=ON \
++#      -DLIBGIT2_FILENAME=git2-$SHORTSHA \
++#      -DCMAKE_OSX_ARCHITECTURES="i386;x86_64" \
++#      -DCMAKE_SKIP_RPATH=TRUE \
++#      ..
++      
+ cmake -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+       -DTHREADSAFE:BOOL=ON \
+       -DBUILD_CLAR:BOOL=OFF \
+       -DUSE_SSH=ON \
++      -DOPENSSL_INCLUDE_DIR=/usr/include/openssl-1.0 \
++      -DOPENSSL_SSL_LIBRARY=/usr/lib/libssl.so.1.0.0 \
++      -DOPENSSL_CRYPTO_LIBRARY=/usr/lib/libcrypto.so.1.0.0 \
+       -DLIBGIT2_FILENAME=git2-$SHORTSHA \
+-      -DCMAKE_OSX_ARCHITECTURES="i386;x86_64" \
+       -DCMAKE_SKIP_RPATH=TRUE \
+       ..
+ 
